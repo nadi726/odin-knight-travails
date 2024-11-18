@@ -8,6 +8,11 @@ RELATIVE_MOVES = [1, -1, 2, -2].permutation(2).filter { |x, y| x != -y }
 BOARD_SIZE = 8
 
 def knight_moves(start_pos, end_pos)
+  unless valid_pos?(start_pos) && valid_pos?(end_pos)
+    puts 'Cannot find a path: invalid position.'
+    return
+  end
+
   path = find_minimum_path(start_pos, end_pos)
   puts "You made it in #{path.size - 1} moves!  Here's your path:"
   path.each { |pos| puts pos.inspect }
@@ -31,6 +36,8 @@ def find_minimum_path(start_pos, end_pos)
   end
 end
 
+# Returns an array of the next moves to be visited
+# Modifies the visited set to include the new move
 def next_moves(current_pos, path, visited)
   moves(current_pos).filter_map do |pos|
     unless visited.include? pos
@@ -53,5 +60,11 @@ def valid_pos?(pos)
 end
 
 knight_moves([0, 0], [1, 2])
+puts
 knight_moves([0, 0], [3, 3])
+puts
 knight_moves([0, 0], [7, 7])
+puts
+knight_moves([0, 0], [0, 0])
+puts
+knight_moves([-1, 0], [0, 0])
