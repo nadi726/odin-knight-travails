@@ -8,6 +8,12 @@ RELATIVE_MOVES = [1, -1, 2, -2].permutation(2).filter { |x, y| x != -y }
 BOARD_SIZE = 8
 
 def knight_moves(start_pos, end_pos)
+  path = find_minimum_path(start_pos, end_pos)
+  puts "You made it in #{path.size - 1} moves!  Here's your path:"
+  path.each { |pos| puts pos.inspect }
+end
+
+def find_minimum_path(start_pos, end_pos)
   # A queue worklist - the next element is an array containing the next position, and the path to this position
   todo = [[start_pos, [start_pos]]]
 
@@ -46,6 +52,6 @@ def valid_pos?(pos)
   pos.all? { |index| index >= 0 && index < BOARD_SIZE }
 end
 
-p knight_moves([0, 0], [1, 2])
-p knight_moves([0, 0], [3, 3])
-p knight_moves([0, 0], [7, 7])
+knight_moves([0, 0], [1, 2])
+knight_moves([0, 0], [3, 3])
+knight_moves([0, 0], [7, 7])
