@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 require 'set'
 
+# Represents all moves a knight can make relative to a position
 RELATIVE_MOVES = [1, -1, 2, -2].permutation(2).filter { |x, y| x != -y }
+
 BOARD_SIZE = 8
 
 def knight_moves(start_pos, end_pos)
@@ -30,15 +34,12 @@ def next_moves(current_pos, path, visited)
   end
 end
 
+# All valid concrete moves from a given position
 def moves(pos)
-  RELATIVE_MOVES.filter_map do |relative_pos|
-    new_pos = sum_pos(pos, relative_pos)
+  RELATIVE_MOVES.filter_map do |move|
+    new_pos = [pos[0] + move[0], pos[1] + move[1]]
     new_pos if valid_pos? new_pos
   end
-end
-
-def sum_pos(p1, p2)
-  [p1[0] + p2[0], p1[1] + p2[1]]
 end
 
 def valid_pos?(pos)
